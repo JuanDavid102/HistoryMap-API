@@ -10,7 +10,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laminas/laminas-diactoros": "^2.8",
         "laravel/framework": "^8.75",
-        "laravel/sanctum": "^2.11",
+        "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.5",
         "mevdschee/php-crud-api": "^2.13",
         "symfony/psr-http-message-bridge": "^2.1"

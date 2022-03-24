@@ -20,7 +20,26 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'rol' => $this->randomRol(),
         ];
+    }
+
+    function randomRol()
+    {
+        $eleccion = random_int(1,3);
+        switch ($eleccion) {
+            case 1:
+                $rol = "profesor";
+                break;
+            case 2:
+                $rol = "administrador";
+                break;
+            case 3:
+                $rol = "alumno";
+                break;
+
+        }
+        return $rol;
     }
 
     /**

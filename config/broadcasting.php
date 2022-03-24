@@ -40,6 +40,17 @@ return [
                 'useTLS' => true,
             ],
         ],
+        'guards' => [
+            'web' => [
+                'driver' => 'session',
+                'provider' => 'users',
+            ],
+            'api' => [
+                'driver' => 'token',
+                'provider' => 'users',
+                'hash' => false,
+            ],
+        ],
 
         'ably' => [
             'driver' => 'ably',

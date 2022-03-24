@@ -12,10 +12,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("eventos", EventoController::class);
+Route::apiResource("eventos", EventoController::class);
 
-Route::get("marcadores", MarcadorController::class);
-
+Route::apiResource("marcadores", MarcadorController::class);
 
 Route::any('/{any}', function (ServerRequestInterface $request) {
     $config = new Config([
