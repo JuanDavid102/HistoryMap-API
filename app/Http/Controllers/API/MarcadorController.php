@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MarcadorResource;
 use App\Models\Marcador;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class MarcadorController extends Controller
      */
     public function index()
     {
-        //
+        return MarcadorResource::collection(Marcador::paginate());
     }
 
     /**
@@ -26,7 +27,11 @@ class MarcadorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $marcador = json_decode($request->getContent(), true);
+
+        $marcador = Marcador::create($marcador);
+
+        return new MarcadorResource($marcador);
     }
 
     /**
@@ -37,7 +42,7 @@ class MarcadorController extends Controller
      */
     public function show(Marcador $marcador)
     {
-        //
+        return new MarcadorResource($marcador);
     }
 
     /**
@@ -49,7 +54,10 @@ class MarcadorController extends Controller
      */
     public function update(Request $request, Marcador $marcador)
     {
-        //
+        $marcadorData = json_decode($request->getContent(), true);
+        $marcador->update($marcadorData);
+
+        return new MarcadorResource($marcador);
     }
 
     /**
@@ -60,6 +68,6 @@ class MarcadorController extends Controller
      */
     public function destroy(Marcador $marcador)
     {
-        //
+        $marcador->delete();
     }
 }

@@ -26,13 +26,21 @@ class UserFactory extends Factory
 
     function randomRol()
     {
-        $eleccion = random_int(1,3);
-        switch ($eleccion) {
+        $eleccion = random_int(1,30);
+
+        $rolNumero = 3;
+
+        if ($eleccion==1) {
+            $rolNumero = 1;
+        }else if ($eleccion <=6) {
+            $rolNumero = 2;
+        }
+        switch ($rolNumero) {
             case 1:
-                $rol = "profesor";
+                $rol = "administrador";
                 break;
             case 2:
-                $rol = "administrador";
+                $rol = "profesor";
                 break;
             case 3:
                 $rol = "alumno";

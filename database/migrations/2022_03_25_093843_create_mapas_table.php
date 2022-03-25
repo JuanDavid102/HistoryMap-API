@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMarcadoresTable extends Migration
+class CreateMapasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateMarcadoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('marcadores', function (Blueprint $table) {
+        Schema::create('mapas', function (Blueprint $table) {
             $table->id();
-            $table->string("posicion", 32);
-            $table->string("descripcion", 100);
-            $table->string("tipo", 25);
+            $table->string("nombre", 100);
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateMarcadoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('marcadores');
+        Schema::dropIfExists('mapas');
     }
 }

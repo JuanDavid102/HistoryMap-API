@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EventoResource;
 use App\Models\Evento;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class EventoController extends Controller
      */
     public function index()
     {
-        //
+        return EventoResource::collection(Evento::paginate());
     }
 
     /**
@@ -26,7 +27,11 @@ class EventoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $evento = json_decode($request->getContent(), true);
+
+        $evento = Evento::create($evento);
+
+        return new EventoResource($evento);
     }
 
     /**
@@ -37,7 +42,7 @@ class EventoController extends Controller
      */
     public function show(Evento $evento)
     {
-        //
+        return new EventoResource($evento);
     }
 
     /**
@@ -49,7 +54,10 @@ class EventoController extends Controller
      */
     public function update(Request $request, Evento $evento)
     {
-        //
+        $eventoData = json_decode($request->getContent(), true);
+        $evento->update($eventoData);
+
+        return new EventoResource($evento);
     }
 
     /**
@@ -60,6 +68,6 @@ class EventoController extends Controller
      */
     public function destroy(Evento $evento)
     {
-        //
+        $evento->delete();
     }
 }
