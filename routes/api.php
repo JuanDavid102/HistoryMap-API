@@ -42,7 +42,8 @@ Route::apiResource("/marcadores", MarcadorController::class);
 
 Route::apiResource("/mapas", MapaController::class);
 
-Route::middleware('auth:sanctum')->any('/{any}', function (ServerRequestInterface $request) {
+//Añadir middleware y controlar solo admin entra
+Route::any('/{any}', function (ServerRequestInterface $request) {
     $config = new Config([
         'address' => env('DB_HOST', '127.0.0.1'),
         'username' => env("DB_USERNAME"),
