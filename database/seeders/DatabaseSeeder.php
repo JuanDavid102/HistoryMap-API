@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Evento;
+use App\Models\Mapa;
 use App\Models\Marcador;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -16,17 +18,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(20)->create();
-
-        Evento::create([
-            "titulo" => "Prueba",
-            "html" => "<h1>Titulo Prueba</h1> <p>prueba prueba prueba prueba prueba prueba prueba prueba prueba prueba prueba </p>",
-        ]);
-        Marcador::create([
-            'posicion' => "12.02153, 13.0132",
-            'descripcion' => "todos vamos a morir buajajajaja",
-            'tipo' => "guerra"
-        ]);
-
+        User::factory(20)->create();
+        Mapa::factory(10)->create();
+        Marcador::factory(10)->create();
+        Evento::factory(10)->create();
     }
 }

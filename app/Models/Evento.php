@@ -11,6 +11,7 @@ class Evento extends Model
 
     protected $fillable = [
         'titulo',
-        'html'
+        'html',
+        'marcador_id'
     ];
 }

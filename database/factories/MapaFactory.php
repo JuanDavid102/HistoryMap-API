@@ -14,7 +14,8 @@ class MapaFactory extends Factory
     public function definition()
     {
         return [
-
+            'nombre' => $this->faker->word(),
+            'usuario_id' => $this->faker->numberBetween(1,20)
         ];
     }
 }

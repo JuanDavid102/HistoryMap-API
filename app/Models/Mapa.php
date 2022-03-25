@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Mapa extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'nombre',
+        'usuario_id'
+    ];
 }

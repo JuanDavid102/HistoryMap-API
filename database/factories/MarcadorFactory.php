@@ -17,6 +17,7 @@ class MarcadorFactory extends Factory
             "posicion" => $this->faker->numberBetween(-85,90) . ", " . $this->faker->numberBetween(-170,190),
             "descripcion" => $this->faker->text(40),
             "tipo" => $this->faker->word(),
+            "mapa_id" => $this->faker->numberBetween(1,10)
         ];
     }
 }
