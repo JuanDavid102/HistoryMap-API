@@ -10,6 +10,16 @@ use Illuminate\Http\Request;
 class MarcadorController extends Controller
 {
     /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Marcador::class, 'marcador');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

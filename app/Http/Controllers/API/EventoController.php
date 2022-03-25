@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 class EventoController extends Controller
 {
     /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Evento::class, 'evento');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
