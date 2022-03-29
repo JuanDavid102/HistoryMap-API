@@ -57,4 +57,15 @@ class User extends Authenticatable
     {
         return $this->rol == "alumno";
     }
+
+    public function isOwner($email)
+    {
+        $permiso = $this->isAdministrator();
+
+        if (!$permiso) {
+            $permiso = $this->email == $email;
+        }
+
+        return $permiso;
+    }
 }

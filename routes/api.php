@@ -4,6 +4,7 @@ use App\Http\Controllers\API\EventoController;
 use App\Http\Controllers\API\MarcadorController;
 use App\Http\Controllers\API\MapaController;
 use App\Http\Controllers\RecodsApiController;
+use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -47,8 +48,14 @@ Route::group(['middleware' => 'auth:sanctum'],function () {
         Route::apiResource("/marcadores", MarcadorController::class);
         Route::apiResource("/mapas", MapaController::class);
 
+        Route::get("user/{email}", [UserController::class, "userDetail"]);
+
     });
 });
+
+
+Route::post("user-signup", [UserController::class, "userSignUp"]);
+Route::post("user-login", [UserController::class, "userLogin"]);
 
 //Añadir middleware y controlar solo admin entra
 Route::middleware('auth:sanctum')->any('/{any}', [RecodsApiController::class, "getRecordsApi"])->where('any', '.*');

@@ -38,5 +38,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('getRecordsApi-RecordsApi', function (User $user) {
             return $user->isAdministrator();
         });
+
+        Gate::define('userDetail-UserController', function (User $user, $email) {
+            return $user->isOwner($email);
+        });
     }
 }
