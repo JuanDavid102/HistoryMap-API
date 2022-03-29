@@ -97,6 +97,7 @@ class UserController extends Controller
 
     // ------------------ [ User Detail ] ---------------------
     public function userDetail($email, $local = false) {
+
         if (!$local) {
             if (!Gate::allows('userDetail-UserController', $email)) {
                 abort(403);
