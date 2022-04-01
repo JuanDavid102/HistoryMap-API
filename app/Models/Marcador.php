@@ -10,7 +10,8 @@ class Marcador extends Model
     use HasFactory;
 
     protected $fillable = [
-        'posicion',
+        'x',
+        'y',
         'tipo',
         'mapa_id'
     ];
