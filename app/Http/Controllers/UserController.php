@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -59,40 +61,35 @@ class UserController extends Controller
     // ------------ [ User Login ] -------------------
     public function userLogin(Request $request) {
 
-        $validator = Validator::make($request->all(),
-            [
-                "email" => "required|email",
-                "password" => "required"
-            ]
-        );
+        $attr = $request->validate([
+            'email' => 'required|string|email|',
+            'password' => 'required|string|min:6'
+        ]);
 
-        if($validator->fails()) {
-            return response()->json(["status" => "failed", "validation_error" => $validator->errors()]);
+        if (!Auth::attempt($attr)) {
+            return response()->json([
+                'message' => 'Invalid login details'
+                           ], 401);
         }
 
-        // check if entered email exists in db
-        $email_status = User::where("email", $request->email)->first();
+        $token = auth()->user()
+            ->createToken('auth_token')->plainTextToken;
+        $user = auth()->user();
 
-        // if email exists then we will check password for the same email
+        $respon = [
+                'status' => 'success',
+                'msg' => 'Login successfully',
+                'content' => [
+                    'status_code' => 200,
+                    'access_token' => $token,
+                    'token_type' => 'Bearer',
+                    'user_name' => $user->name,
+                    'user_email' => $user->email,
+                    'user_id' => $user->id,
+                ]
+            ];
 
-        if(!is_null($email_status)) {
-            $password_status = User::where("email", $request->email)->where("password", md5($request->password))->first();
-
-            // if password is correct
-            if(!is_null($password_status)) {
-                $user = $this->userDetail($request->email, true);
-
-                return response()->json(["status" => $this->status_code, "success" => true, "message" => "Te has logeado correctamente", "data" => $user]);
-            }
-
-            else {
-                return response()->json(["status" => "failed", "success" => false, "message" => "Fallo al logearse. Contraseña incorrecta"]);
-            }
-        }
-
-        else {
-            return response()->json(["status" => "failed", "success" => false, "message" => "Fallo al logearse. Email inexistente."]);
-        }
+            return response()->json($respon, 200);
     }
 
     // ------------------ [ User Detail ] ---------------------
