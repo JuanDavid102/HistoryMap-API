@@ -16,7 +16,6 @@ class CreateMarcadoresTable extends Migration
         Schema::create('marcadores', function (Blueprint $table) {
             $table->id();
             $table->string("posicion", 32);
-            $table->string("descripcion", 100);
             $table->string("tipo", 25);
             $table->bigInteger("mapa_id")->unsigned();
             $table->timestamps();

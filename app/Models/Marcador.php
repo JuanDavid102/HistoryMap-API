@@ -11,7 +11,6 @@ class Marcador extends Model
 
     protected $fillable = [
         'posicion',
-        'descripcion',
         'tipo',
         'mapa_id'
     ];
