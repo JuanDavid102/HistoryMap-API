@@ -17,4 +17,14 @@ class Marcador extends Model
     ];
 
     protected $table = "marcadores";
+
+    public function mapaEnlazado()
+    {
+        return $this->belongsTo(Mapa::class, 'mapa_id');
+    }
+
+    public function eventos()
+    {
+        return $this->hasMany(Evento::class, 'marcador_id');
+    }
 }

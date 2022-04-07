@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\MapaResource;
 use App\Models\Mapa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MapaController extends Controller
 {
@@ -26,7 +27,10 @@ class MapaController extends Controller
      */
     public function index()
     {
-        return MapaResource::collection(Mapa::paginate());
+        $usuario = Auth::user();
+        $mapasCreados = $usuario->mapasCreados;
+
+        return MapaResource::collection($mapasCreados);
     }
 
     /**

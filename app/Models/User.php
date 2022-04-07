@@ -71,4 +71,9 @@ class User extends Authenticatable
 
         return $permiso;
     }
+
+    public function mapasCreados()
+    {
+        return $this->hasMany(Mapa::class, 'usuario_id');
+    }
 }

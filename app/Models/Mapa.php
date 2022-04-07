@@ -11,6 +11,17 @@ class Mapa extends Model
 
     protected $fillable = [
         'nombre',
+        'link_imagen',
         'usuario_id'
     ];
+
+    public function usuarioPropietario()
+    {
+        return $this->belongsTo(User::class, 'usuario_id');
+    }
+
+    public function marcadores()
+    {
+        return $this->hasMany(Marcador::class, 'mapa_id');
+    }
 }

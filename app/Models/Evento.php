@@ -14,4 +14,9 @@ class Evento extends Model
         'html',
         'marcador_id'
     ];
+
+    public function marcadorEnlazado()
+    {
+        return $this->belongsTo(Marcador::class, 'marcador_id');
+    }
 }

@@ -15,7 +15,8 @@ class MapaFactory extends Factory
     {
         return [
             'nombre' => $this->faker->word(),
-            'usuario_id' => $this->faker->numberBetween(1,20)
+            'link_imagen' => 'link de imagen',
+            'usuario_id' => $this->faker->numberBetween(1,20),
         ];
     }
 }
