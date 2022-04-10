@@ -56,19 +56,3 @@ Route::group(['middleware' => 'auth:sanctum'],function () {
 
 Route::post("user-signup", [UserController::class, "userSignUp"]);
 Route::post("user-login", [UserController::class, "userLogin"]);
-
-//Añadir middleware y controlar solo admin entra
-//Route::middleware('auth:sanctum')->any('/{any}', [RecodsApiController::class, "getRecordsApi"])->where('any', '.*');
-
-Route::any('/{any}', function (ServerRequestInterface $request) {
-    $config = new Config([
-        'address' => env('DB_HOST', '127.0.0.1'),
-        'database' => env('DB_DATABASE', 'forge'),
-        'username' => env('DB_USERNAME', 'forge'),
-        'password' => env('DB_PASSWORD', ''),
-        'basePath' => '/api',
-    ]);
-    $api = new Api($config);
-    $response = $api->handle($request);
-    return $response;
-})->where('any', '.*');
