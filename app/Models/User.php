@@ -76,4 +76,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Mapa::class, 'usuario_id');
     }
+
+    public function mapasVisualizados()
+    {
+        return $this->belongsToMany(Mapa::class, 'invitaciones');
+    }
 }

@@ -15,9 +15,14 @@ class Mapa extends Model
         'usuario_id'
     ];
 
-    public function usuarioPropietario()
+    public function usuarioCreador()
     {
         return $this->belongsTo(User::class, 'usuario_id');
+    }
+
+    public function usuariosVisualizadores()
+    {
+        return $this->belongsToMany(User::class, 'invitaciones');
     }
 
     public function marcadores()

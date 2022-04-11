@@ -14,7 +14,7 @@ class AddForeignKeyToMapaUserTable extends Migration
     public function up()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::table('mapa_user', function (Blueprint $table) {
+        Schema::table('invitaciones', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('mapa_id')->references('id')->on('mapas');
         });
@@ -29,9 +29,9 @@ class AddForeignKeyToMapaUserTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::table('mapa_user', function (Blueprint $table) {
-            $table->dropForeign('mapa_user_user_id_foreign');
-            $table->dropForeign('mapa_user_mapa_id_foreign');
+        Schema::table('invitaciones', function (Blueprint $table) {
+            $table->dropForeign('invitaciones_user_id_foreign');
+            $table->dropForeign('invitaciones_mapa_id_foreign');
         });
         Schema::enableForeignKeyConstraints();
     }
