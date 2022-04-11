@@ -12,7 +12,8 @@ class Mapa extends Model
     protected $fillable = [
         'nombre',
         'link_imagen',
-        'usuario_id'
+        'usuario_id',
+        'privado'
     ];
 
     public function usuarioCreador()

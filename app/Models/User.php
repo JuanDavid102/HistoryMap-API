@@ -81,4 +81,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Mapa::class, 'invitaciones');
     }
+
+    public function notificaciones()
+    {
+        return $this->hasMany(Notificacion::class, 'idUsu');
+    }
 }
