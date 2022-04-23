@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -12,6 +13,21 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     private $status_code = 200;
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Mapa  $mapa
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user)
+    {
+        $userData = json_decode($request->getContent(), true);
+        $user->update($userData);
+
+        return new UserResource($user);
+    }
 
     public function userSignUp(Request $request) {
         $validator = Validator::make($request->all(), [
