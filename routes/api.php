@@ -16,51 +16,54 @@ use Psr\Http\Message\ServerRequestInterface;
 use Tqdev\PhpCrudApi\Api;
 use Tqdev\PhpCrudApi\Config;
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
-Route::post('/tokens/create', function (Request $request) {
+Route::middleware(['cors'])->group(function () {
 
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required'
-    ]);
-
-    $user = User::where('email', $request->email)->first();
-
-    if (! $user || ! Hash::check($request->password, $user->password)) {
-        throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
-        ]);
-    }
-
-    return response()->json([
-        'token_type' => 'Bearer',
-        'access_token' => $user->createToken('token_name')->plainTextToken // token name you can choose for your self or leave blank if you like to
-    ]);
-});
-
-//Route::middleware('auth:sanctum')->
-
-Route::group(['middleware' => 'auth:sanctum'],function () {
-    Route::group(['prefix' => '/'], function () {
-
-        Route::apiResource("/eventos", EventoController::class);
-        Route::apiResource("/marcadores", MarcadorController::class);
-        Route::apiResource("/mapas", MapaController::class);
-        Route::apiResource("/notificaciones", NotificacionController::class);
-
-        Route::get("user/{email}", [UserController::class, "userDetail"]);
-
+    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+        return $request->user();
     });
+
+    Route::post('/tokens/create', function (Request $request) {
+
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
+        }
+
+        return response()->json([
+            'token_type' => 'Bearer',
+            'access_token' => $user->createToken('token_name')->plainTextToken // token name you can choose for your self or leave blank if you like to
+        ]);
+    });
+
+    //Route::middleware('auth:sanctum')->
+
+    Route::group(['middleware' => 'auth:sanctum'],function () {
+        Route::group(['prefix' => '/'], function () {
+
+            Route::apiResource("/eventos", EventoController::class);
+            Route::apiResource("/marcadores", MarcadorController::class);
+            Route::apiResource("/mapas", MapaController::class);
+            Route::apiResource("/notificaciones", NotificacionController::class);
+
+            Route::get("user/{email}", [UserController::class, "userDetail"]);
+
+        });
+    });
+
+    Route::get('migrate', function () {
+        //Artisan::call('migrate', ["--force" => true ]);
+        //Artisan::call('db:seed', ["--force" => true ]);
+    });
+
+    Route::post("user-signup", [UserController::class, "userSignUp"]);
+    Route::post("user-login", [UserController::class, "userLogin"]);
 });
-
-Route::get('migrate', function () {
-    //Artisan::call('migrate', ["--force" => true ]);
-    //Artisan::call('db:seed', ["--force" => true ]);
-});
-
-
-Route::post("user-signup", [UserController::class, "userSignUp"]);
-Route::post("user-login", [UserController::class, "userLogin"]);
