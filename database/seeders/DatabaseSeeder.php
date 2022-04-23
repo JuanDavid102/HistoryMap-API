@@ -19,6 +19,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $user = new User();
+        $user->name = "HMAPI admin";
+        $user->email = "lordfadesta@gmail.com";
+        $user->email_verified_at = now();
+        $user->password = bcrypt('password');
+        $user->remember_token = "HMAPI admin";
+        $user->rol = "administrador";
+        $user->save();
+
         User::factory(20)->create();
         Mapa::factory(10)->create();
         Marcador::factory(10)->create();
