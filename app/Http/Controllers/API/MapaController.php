@@ -41,7 +41,6 @@ class MapaController extends Controller
     public function indexPublicos()
     {
         $mapasPublicos = MapaResource::collection(Mapa::paginate());
-
         return $mapasPublicos;
     }
 

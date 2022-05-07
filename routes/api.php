@@ -60,6 +60,3 @@ use Tqdev\PhpCrudApi\Config;
         //Artisan::call('db:seed', ["--force" => true ]);
         return "hola";
     });
-
-    Route::post("user-signup", [UserController::class, "userSignUp"]);
-    Route::post("user-login", [UserController::class, "userLogin"]);
