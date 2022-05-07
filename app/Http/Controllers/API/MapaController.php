@@ -34,6 +34,18 @@ class MapaController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexPublicos()
+    {
+        $mapasPublicos = MapaResource::collection(Mapa::paginate());
+
+        return $mapasPublicos;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

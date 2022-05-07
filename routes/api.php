@@ -16,9 +16,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Tqdev\PhpCrudApi\Api;
 use Tqdev\PhpCrudApi\Config;
 
-
-Route::middleware(['cors'])->group(function () {
-
     Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         return $request->user();
     });
@@ -45,25 +42,24 @@ Route::middleware(['cors'])->group(function () {
     });
 
     //Route::middleware('auth:sanctum')->
+        Route::group(['middleware' => 'auth:sanctum'],function () {
+            Route::group(['prefix' => '/'], function () {
 
-    Route::group(['middleware' => 'auth:sanctum'],function () {
-        Route::group(['prefix' => '/'], function () {
+                Route::apiResource("/eventos", EventoController::class);
+                Route::apiResource("/marcadores", MarcadorController::class);
+                Route::apiResource("/mapas", MapaController::class);
+                Route::apiResource("/notificaciones", NotificacionController::class);
 
-            Route::apiResource("/eventos", EventoController::class);
-            Route::apiResource("/marcadores", MarcadorController::class);
-            Route::apiResource("/mapas", MapaController::class);
-            Route::apiResource("/notificaciones", NotificacionController::class);
+                Route::get("user/{email}", [UserController::class, "userDetail"]);
 
-            Route::get("user/{email}", [UserController::class, "userDetail"]);
-
+            });
         });
-    });
 
     Route::get('migrate', function () {
         //Artisan::call('migrate', ["--force" => true ]);
         //Artisan::call('db:seed', ["--force" => true ]);
+        return "hola";
     });
 
     Route::post("user-signup", [UserController::class, "userSignUp"]);
     Route::post("user-login", [UserController::class, "userLogin"]);
-});
